@@ -1,0 +1,78 @@
+{
+  "agents": {
+    "defaults": {
+      // Point workspace at Cliosphere state/ — Clio's flat file workspace
+      // All files here are symlinks to core/ and platforms/openclaw/
+      "workspace": "/workspaces/Cliosphere/state",
+
+      // We manage our own files — don't let OpenClaw overwrite them
+      "skipBootstrap": true,
+
+      "model": {
+        "primary": "ollama/qwen2.5-coder:7b",
+        "fallbacks": [
+          "gemini/gemini-2.5-pro",
+          "anthropic/claude-sonnet-4-6"
+        ]
+      },
+      "models": {
+        "ollama/qwen2.5-coder:7b": { "alias": "LocalCoder" },
+        "gemini/gemini-2.5-pro": { "alias": "Gemini" },
+        "anthropic/claude-sonnet-4-6": { "alias": "Sonnet" },
+        "anthropic/claude-opus-4-6": { "alias": "Opus" }
+      },
+
+      // Sandbox non-main sessions (group chats, other channels)
+      // Main session (just you) keeps full host access
+      "sandbox": {
+        "mode": "non-main"
+      },
+
+      // Bootstrap file size limits
+      // SOUL.md + AGENTS.md + MEMORY.md can be large — raise ceiling
+      "bootstrapMaxChars": 30000,
+      "bootstrapTotalMaxChars": 150000,
+
+      "experimental": {
+        "localModelLean": true
+      }
+    }
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "ollama": {
+        "baseUrl": "http://127.0.0.1:11434",
+        "apiKey": "ollama-local",
+        "api": "openai-completions",
+        "timeoutSeconds": 120,
+        "models": [
+          {
+            "id": "qwen2.5-coder:7b",
+            "name": "Qwen 2.5 Coder 7B",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 32768,
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek-r1:7b",
+            "name": "DeepSeek R1 7B",
+            "reasoning": true,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 32768,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "gateway": {
+    "bind": "loopback",
+    "auth": {
+      "mode": "token"
+    }
+  }
+}
