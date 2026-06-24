@@ -1,0 +1,25 @@
+# prompt_performance.jsonl — Clio SDD feedback signal
+# Schema (one JSON object per line, no trailing commas):
+# {
+#   "ts":           "2026-06-09T00:00:00",   // ISO8601 UTC
+#   "task_id":      "20260609-027-slug",       // runtime/tasks/ directory name
+#   "agent":        "clio-antigravity",        // which agent ran the task
+#   "template_ver": "1.0",                     // version of requirements.md template used
+#   "outcome":      "complete|blocked|failed", // final status
+#   "hitl":         true,                      // did Mathew have to intervene?
+#   "hitl_reason":  "unclear acceptance criteria", // if hitl=true, why
+#   "fr_scores": {                             // per-FR confidence from review.md
+#     "FR-01": 0.9,
+#     "FR-02": 0.7
+#   },
+#   "avg_fr_score": 0.8,                       // mean of fr_scores
+#   "blocked_frs":  ["FR-02"],                 // FRs that were BLOCKED
+#   "second_attempt": false,                   // did the agent need a retry?
+#   "notes":        "spec was ambiguous on edge case X" // from review.md §5, machine-readable
+# }
+#
+# Populated by: feedback collector (not yet implemented — #31)
+# Read by:      clio-claude periodically to propose template/prompt improvements
+# Signal:       low avg_fr_score + hitl=true = template or spec problem
+#               blocked_frs recurring = structural gap in template
+#               hitl_reason patterns = Mathew bottleneck taxonomy

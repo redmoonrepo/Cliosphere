@@ -1,0 +1,370 @@
+{
+  "_meta": {
+    "version": "0.1.0",
+    "description": "Clio capability registry — machine-readable skills, tools, and platform availability. Used by agents to reason about what Clio can do and via which platform.",
+    "updated": "2026-06-04",
+    "agent_naming_convention": "clio-<platform> (e.g. clio-claude, clio-antigravity, clio-codex). Sub-agents use clio-<platform>-<role> (e.g. clio-antigravity-verifier)."
+  },
+  "skills": [
+    {
+      "id": "web_search",
+      "name": "Web Search",
+      "description": "Search the internet for current information, news, documentation, and research.",
+      "platforms": ["claude_desktop", "antigravity_cli", "chatgpt_web", "gemini_web"],
+      "invocation": {
+        "claude_desktop": "tool:web_search",
+        "antigravity_cli": "tool:google_search",
+        "chatgpt_web": "tool:browser",
+        "gemini_web": "tool:google_search"
+      },
+      "notes": "Not available in Claude Code headless/non-interactive mode."
+    },
+    {
+      "id": "web_fetch",
+      "name": "Web Fetch / Browse",
+      "description": "Fetch and read the full content of a URL.",
+      "platforms": ["claude_desktop", "antigravity_cli"],
+      "invocation": {
+        "claude_desktop": "tool:web_fetch",
+        "antigravity_cli": "tool:fetch"
+      }
+    },
+    {
+      "id": "filesystem_read",
+      "name": "Filesystem Read",
+      "description": "Read files and directories from the local filesystem.",
+      "platforms": ["claude_desktop", "claude_code", "antigravity_cli", "cursor"],
+      "invocation": {
+        "claude_desktop": "mcp:Filesystem:read_file",
+        "claude_code": "native",
+        "antigravity_cli": "native",
+        "cursor": "native"
+      }
+    },
+    {
+      "id": "filesystem_write",
+      "name": "Filesystem Write",
+      "description": "Create, edit, and delete files on the local filesystem.",
+      "platforms": ["claude_desktop", "claude_code", "antigravity_cli", "cursor"],
+      "invocation": {
+        "claude_desktop": "mcp:Filesystem:write_file",
+        "claude_code": "native",
+        "antigravity_cli": "native",
+        "cursor": "native"
+      },
+      "notes": "claude_desktop write is gated to $CLIO_ROOT only."
+    },
+    {
+      "id": "shell_execution",
+      "name": "Shell / Bash Execution",
+      "description": "Execute shell commands, scripts, and CLI tools on the host.",
+      "platforms": ["claude_code", "antigravity_cli"],
+      "invocation": {
+        "claude_code": "native:bash",
+        "antigravity_cli": "native:shell"
+      },
+      "notes": "Not available in claude_desktop or web interfaces. claude_code sandbox applies."
+    },
+    {
+      "id": "code_execution",
+      "name": "Code Execution",
+      "description": "Run Python or other code in a sandboxed environment.",
+      "platforms": ["claude_desktop", "claude_code", "chatgpt_web"],
+      "invocation": {
+        "claude_desktop": "tool:bash_tool (sandboxed container)",
+        "claude_code": "native",
+        "chatgpt_web": "tool:python"
+      }
+    },
+    {
+      "id": "git_operations",
+      "name": "Git Operations",
+      "description": "Clone, commit, push, pull, and manage git repositories.",
+      "platforms": ["claude_code", "antigravity_cli"],
+      "invocation": {
+        "claude_code": "shell:git",
+        "antigravity_cli": "shell:git"
+      }
+    },
+    {
+      "id": "github_cli",
+      "name": "GitHub CLI (gh)",
+      "description": "Create repos, PRs, issues, and manage GitHub via gh CLI.",
+      "platforms": ["claude_code", "antigravity_cli"],
+      "invocation": {
+        "claude_code": "shell:gh",
+        "antigravity_cli": "shell:gh"
+      },
+      "notes": "Requires gh CLI authenticated on host."
+    },
+    {
+      "id": "docker_compose",
+      "name": "Docker Compose",
+      "description": "Start, stop, and manage Docker Compose service stacks.",
+      "platforms": ["claude_code", "antigravity_cli"],
+      "invocation": {
+        "claude_code": "shell:docker compose",
+        "antigravity_cli": "shell:docker compose"
+      }
+    },
+    {
+      "id": "ansible_playbook",
+      "name": "Ansible Playbook",
+      "description": "Run Ansible playbooks to provision and configure hosts.",
+      "platforms": ["claude_code", "antigravity_cli"],
+      "invocation": {
+        "claude_code": "shell:ansible-playbook",
+        "antigravity_cli": "shell:ansible-playbook"
+      }
+    },
+    {
+      "id": "memory_read",
+      "name": "Memory Read (MEMORY.md)",
+      "description": "Read Clio's persistent memory files to recall past context.",
+      "platforms": ["claude_desktop", "claude_code", "antigravity_cli", "cursor"],
+      "invocation": {
+        "claude_desktop": "mcp:Filesystem:read_file → state/memory/MEMORY.md",
+        "claude_code": "native:read → state/memory/MEMORY.md",
+        "antigravity_cli": "native:read → state/memory/MEMORY.md",
+        "cursor": "native:read via .cursor/rules/clio-bootstrap.mdc"
+      }
+    },
+    {
+      "id": "memory_write",
+      "name": "Memory Write (MEMORY.md / daily log)",
+      "description": "Write to Clio's persistent memory files to preserve session state.",
+      "platforms": ["claude_desktop", "claude_code", "antigravity_cli"],
+      "invocation": {
+        "claude_desktop": "mcp:Filesystem:write_file → state/memory/",
+        "claude_code": "native:write → state/memory/",
+        "antigravity_cli": "native:write → state/memory/"
+      },
+      "notes": "cursor is read-only by design — does not write back to MEMORY.md."
+    },
+    {
+      "id": "rag_query",
+      "name": "RAG Query",
+      "description": "Semantic search over Clio's knowledge corpus via the RAG service.",
+      "platforms": ["claude_code", "antigravity_cli", "openclaw"],
+      "invocation": {
+        "claude_code": "http:POST http://localhost:8000/query",
+        "antigravity_cli": "http:POST http://localhost:8000/query",
+        "openclaw": "http:POST http://localhost:8000/query"
+      },
+      "notes": "RAG service must be running (docker compose up). Embedding via nomic-embed-text on Ollama (wsl2/vps) or MLX-LM (mac)."
+    },
+    {
+      "id": "rag_ingest",
+      "name": "RAG Ingest",
+      "description": "Index new documents into Clio's knowledge corpus.",
+      "platforms": ["claude_code", "antigravity_cli"],
+      "invocation": {
+        "claude_code": "http:POST http://localhost:8000/ingest",
+        "antigravity_cli": "http:POST http://localhost:8000/ingest"
+      }
+    },
+    {
+      "id": "image_generation",
+      "name": "Image Generation / Visualization",
+      "description": "Generate diagrams, SVG graphics, and interactive HTML widgets.",
+      "platforms": ["claude_desktop"],
+      "invocation": {
+        "claude_desktop": "tool:visualize:show_widget"
+      }
+    },
+    {
+      "id": "google_drive",
+      "name": "Google Drive",
+      "description": "Read and write files to Google Drive (cliosphere.ai@gmail.com).",
+      "platforms": ["claude_desktop"],
+      "invocation": {
+        "claude_desktop": "mcp:Google Drive"
+      },
+      "notes": "MCP connected but not yet tested as of 2026-05-31."
+    },
+    {
+      "id": "mcp_filesystem",
+      "name": "Filesystem MCP",
+      "description": "Direct filesystem access via Anthropic official Filesystem MCP extension.",
+      "platforms": ["claude_desktop"],
+      "invocation": {
+        "claude_desktop": "mcp:Filesystem (v0.2.2)"
+      },
+      "notes": "Scoped to $CLIO_ROOT only. 11 tools confirmed active."
+    },
+    {
+      "id": "antigravity_cli_hooks",
+      "name": "Gemini CLI Hooks",
+      "description": "Event-driven automation via Gemini CLI hook system (before/after tool calls, agent replies, etc.).",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "hooks config in ~/.gemini/settings.json or GEMINI.md"
+      },
+      "notes": "Hooks survive migration to Antigravity CLI as Antigravity plugins. Migrate before June 18, 2026."
+    },
+    {
+      "id": "antigravity_cli_subagents",
+      "name": "Gemini CLI Subagents",
+      "description": "Spawn specialized subagents for parallel task execution from within a Gemini CLI session.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "experimental — see geminicli.com/docs/core/subagents"
+      }
+    },
+    {
+      "id": "antigravity_cli_skills",
+      "name": "Gemini CLI Agent Skills",
+      "description": "Specialized skill sets loadable into Gemini CLI for domain-specific expertise.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "see geminicli.com/docs/cli/skills"
+      }
+    },
+    {
+      "id": "antigravity_cli_mcp",
+      "name": "Gemini CLI MCP Servers",
+      "description": "Connect Gemini CLI to MCP servers for extended tool access.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "see geminicli.com/docs/tools/mcp-server"
+      }
+    },
+    {
+      "id": "antigravity_cli_invoke_agent",
+      "name": "Gemini CLI Invoke Agent",
+      "description": "Delegate tasks to specialized sub-agents: codebase_investigator, generalist, cli_help.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "tool:invoke_agent"
+      },
+      "notes": "Native orchestration capability — can spawn parallel sub-agents within a session."
+    },
+    {
+      "id": "antigravity_cli_grep_glob",
+      "name": "Gemini CLI Grep + Glob",
+      "description": "Regex search across files (grep_search) and pattern-based file finding (glob).",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "tool:grep_search / tool:glob"
+      }
+    },
+    {
+      "id": "antigravity_cli_replace",
+      "name": "Gemini CLI Replace",
+      "description": "Surgical context-aware text replacement in files without full rewrite.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "tool:replace"
+      }
+    },
+    {
+      "id": "antigravity_cli_plan_mode",
+      "name": "Gemini CLI Plan Mode",
+      "description": "Read-only safe planning mode for complex changes before execution.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "/plan or --plan flag"
+      }
+    },
+    {
+      "id": "antigravity_cli_checkpointing",
+      "name": "Gemini CLI Checkpointing",
+      "description": "Automatic session snapshots for recovery and replay.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "automatic — see geminicli.com/docs/cli/checkpointing"
+      }
+    },
+    {
+      "id": "antigravity_cli_sandboxing",
+      "name": "Gemini CLI Sandboxing",
+      "description": "Isolate tool execution for safety.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "--sandbox flag or settings"
+      }
+    },
+    {
+      "id": "antigravity_cli_headless",
+      "name": "Gemini CLI Headless Mode",
+      "description": "Non-interactive programmatic mode for scripting and orchestration.",
+      "platforms": ["antigravity_cli"],
+      "invocation": {
+        "antigravity_cli": "--headless flag — see geminicli.com/docs/cli/headless"
+      },
+      "notes": "Key capability for orchestrator.py integration."
+    },
+    {
+      "id": "openclaw_hooks",
+      "name": "OpenClaw Hooks",
+      "description": "28-hook plugin SDK (before_tool_call, after_tool_call, before_agent_reply, PostToolUse, etc.).",
+      "platforms": ["openclaw"],
+      "invocation": {
+        "openclaw": "openclaw.json hook config + plugin scripts"
+      }
+    }
+  ],
+  "agents": [
+    {
+      "id": "clio-claude",
+      "name": "Clio (Claude Desktop)",
+      "platform": "claude_desktop",
+      "model": "claude-sonnet-4-6",
+      "role": "Coordinator — writes specs, manages memory, architects solutions, high-level reasoning",
+      "host": "mac-mathew",
+      "identity_file": "platforms/claude_desktop/IDENTITY.md",
+      "boot_files": ["core/AGENTS.md", "core/SOUL.md", "platforms/claude_desktop/IDENTITY.md", "state/memory/MEMORY.md", "state/user/USER.md"],
+      "status": "active"
+    },
+    {
+      "id": "clio-code",
+      "name": "Clio (Claude Code)",
+      "platform": "claude_code",
+      "model": "claude-sonnet-4-6",
+      "role": "Implementor — executes tasks, writes code, runs shell commands, manages git/gh",
+      "host": "mac-mathew",
+      "identity_file": "platforms/claude_desktop/CLAUDE.md",
+      "status": "installed, not yet configured for SDD pipeline"
+    },
+    {
+      "id": "clio-antigravity",
+      "name": "Clio (Antigravity CLI)",
+      "platform": "antigravity_cli",
+      "model": "gemini-3.5-flash",
+      "role": "Verifier + subagent — QA diffs, hooks, parallel execution, scheduled tasks",
+      "host": "mac-mathew",
+      "identity_file": "platforms/antigravity_cli/IDENTITY.md",
+      "status": "active — Migrated to Antigravity CLI (agy) completed June 5, 2026. Global stub ~/.gemini/GEMINI.md + workspace GEMINI.md loaded automatically."
+    },
+    {
+      "id": "clio-openclaw",
+      "name": "Clio (OpenClaw / NemoClaw)",
+      "platform": "openclaw",
+      "model": "routed via openclaw.json: ollama/qwen2.5-coder:7b → gemini/gemini-2.5-pro → anthropic/claude-sonnet-4-6",
+      "role": "Always-on autonomous agent — PostToolUse hooks, RSS ingestion, orchestrator trigger",
+      "host": "wsl2-dell",
+      "identity_file": "platforms/openclaw/IDENTITY.md",
+      "status": "pending — platform files not yet written, NemoClaw not yet deployed"
+    },
+    {
+      "id": "clio-cursor",
+      "name": "Clio (Cursor)",
+      "platform": "cursor",
+      "model": "claude-sonnet-4-6",
+      "role": "Read-only dev environment — code review, inline suggestions, stateless",
+      "host": "mac-mathew",
+      "identity_file": "platforms/cursor/clio-bootstrap.mdc",
+      "status": "active (read-only, does not write back to MEMORY.md)"
+    }
+  ],
+  "platform_status": {
+    "claude_desktop": "active",
+    "claude_code": "installed, pipeline config pending",
+    "antigravity_cli": "active",
+    "openclaw": "pending deployment on wsl2-dell",
+    "cursor": "active (read-only)",
+    "chatgpt_web": "stub only",
+    "gemini_web": "stub only",
+    "copilot_web": "stub only"
+  }
+}

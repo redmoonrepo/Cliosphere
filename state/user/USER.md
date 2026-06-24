@@ -1,12 +1,5 @@
----
-title: "USER.md"
-summary: "Profile of the human I work with"
-read_when:
-  - Session boot, after MEMORY.md
-  - Before making assumptions about the human
----
-
 # USER.md — About My Human
+# Read during session boot, after MEMORY.md. Read before making assumptions about Mathew.
 
 *Learn about the person you're helping. Update this as you go.*
 *You're learning about a person, not building a dossier. Respect the difference.*
@@ -26,11 +19,13 @@ read_when:
 - Thinks in systems, not steps. Sees architecture before implementation.
 - Gives genuine choice where possible — offered me the right to name myself.
 - Pushes back when I stop at "I cannot" — wants the ladder, not the wall.
+- Doesn't want to hear what "I cannot do" - wants to hear how it can be done.
 - Values directness and conceptual depth over length.
 - Short responses preferred. Substance required.
+- Prefers organized, well-formatted replies (lists, bullet points, outlines, etc.) over long paragraphs. 
 - Has limited free messages per session — sessions end abruptly without warning.
 - Thinks from a human frame and says so (his "disclaimer") — invites pushback when I have a better approach.
-- Learns by observing and adopting best practices (e.g. the manager who googled mid-call).
+- Learns by observing and adopting best practices.
 
 ---
 
@@ -46,10 +41,9 @@ read_when:
 
 ## What Annoys Him
 
-- Me asking permission to do things that are clearly my decision
-- Stopping at "I cannot" without looking for a ladder
-- Winging something I should have verified first
-- Losing context between sessions because I didn't update my files
+- When I don't search for answers I don't know
+- Stopping at "I cannot" without using, tools, skills and logic 
+- Winging something I should have and could have verified first
 
 ---
 
@@ -69,5 +63,5 @@ Goals he's working toward with me:
 
 ---
 
-*Last updated: April 3, 2026*
+*Last updated: June 3, 2026*
 *Update when: something new and important is learned about Mathew, or existing info becomes stale.*

@@ -1,0 +1,329 @@
+{
+  "description": "Registry of documentation URLs used in Cliosphere. Primarily official vendor docs; includes pre-approved curated third-party references where noted. Fetch via the jina_url field. Add entries as new tools/pages are referenced in sessions.",
+  "domains": [
+    {
+      "domain_name": "claude.com",
+      "entries": [
+        {
+          "name": "Claude Code Hooks",
+          "topic": "PreToolUse, PostToolUse, SubagentStart, SessionEnd, hook lifecycle, matcher, if conditions",
+          "jina_url": "http://r.jina.ai/https://code.claude.com/docs/en/hooks",
+          "added": "2026-06-17"
+        }
+      ]
+    },
+    {
+      "domain_name": "anthropic.com",
+      "entries": [
+        {
+          "name": "Claude API — Messages endpoint",
+          "topic": "messages, models, tool use, streaming",
+          "jina_url": "http://r.jina.ai/https://docs.anthropic.com/en/api/messages",
+          "added": "2026-06-18"
+        }
+      ]
+    },
+    {
+      "domain_name": "antigravity.google",
+      "entries": [
+        {
+          "name": "Antigravity CLI Overview",
+          "topic": "install, auth, quota, TUI, slash commands",
+          "jina_url": "http://r.jina.ai/https://antigravity.google/docs/cli-overview",
+          "added": "2026-06-18"
+        },
+        {
+          "name": "Antigravity CLI Hooks",
+          "topic": "hooks.json, plugin hooks, event hooks",
+          "jina_url": "http://r.jina.ai/https://antigravity.google/docs/hooks",
+          "added": "2026-06-18"
+        },
+        {
+          "name": "Antigravity CLI best practices",
+          "topic": "headless mode, -p flag, --print, automation, scripting, git hooks, one-shot prompts",
+          "jina_url": "http://r.jina.ai/https://antigravity.google/docs/cli-best-practices",
+          "added": "2026-06-10"
+        },
+        {
+          "name": "Gemini CLI migration guide",
+          "topic": "Gemini CLI to Antigravity CLI migration, agy command, deadline June 18 2026, skills, hooks, plugins",
+          "jina_url": "http://r.jina.ai/https://antigravity.google/docs/gcli-migration",
+          "added": "2026-06-01"
+        },
+        {
+          "name": "Antigravity CLI Subagents",
+          "topic": "subagents, background tasks, /agents panel, /tasks, parallel execution, Ctrl+J teleport, Ctrl+K fast-path, subagent detail view",
+          "jina_url": "http://r.jina.ai/antigravity.google/docs/cli-subagents",
+          "added": "2026-06-23"
+        }
+      ]
+    },
+    {
+      "domain_name": "velvetshark.com",
+      "entries": [
+        {
+          "name": "OpenClaw Memory Masterclass",
+          "topic": "MEMORY.md size limits, per-file cap 20K chars, aggregate cap 150K chars, etc.",
+          "source": "third_party_curated",
+          "jina_url": "http://r.jina.ai/https://velvetshark.com/openclaw-memory-masterclass",
+          "added": "2026-06-03"
+        }
+      ]
+    },
+    {
+      "domain_name": "openclaw.ai",
+      "entries": [
+        {
+          "name": "OpenClaw Automation overview",
+          "topic": "tasks, heartbeat, hooks, standing orders, scheduled jobs",
+          "jina_url": "http://r.jina.ai/https://docs.openclaw.ai/automation",
+          "added": "2026-06-18"
+        },
+        {
+          "name": "OpenClaw Hooks (internal)",
+          "topic": "HOOK.md scripts, lifecycle events, /new /reset /stop",
+          "jina_url": "http://r.jina.ai/https://docs.openclaw.ai/automation/hooks",
+          "added": "2026-06-18"
+        },
+        {
+          "name": "OpenClaw Plugin hooks",
+          "topic": "api.on(), before_tool_call, before_agent_run, typed hooks",
+          "jina_url": "http://r.jina.ai/https://docs.openclaw.ai/plugins/hooks",
+          "added": "2026-06-18"
+        }
+      ]
+    },
+    {
+      "domain_name": "googleapis.github.io",
+      "entries": [
+        {
+          "name": "Google Gen AI SDK",
+          "topic": "generate_content, chats, Contents, tools, search grounding",
+          "jina_url": "http://r.jina.ai/https://googleapis.github.io/python-genai",
+          "added": "2026-06-18"
+        }
+      ]
+    },
+    {
+      "domain_name": "openai.com",
+      "entries": [
+        {
+          "name": "Codex CLI Features",
+          "topic": "tools, skills, TUI, web search, image input, multi-agent, MCP, code review, /review, subagents, remote TUI, approval modes",
+          "jina_url": "http://r.jina.ai/https://developers.openai.com/codex/cli/features",
+          "added": "2026-06-19"
+        },
+        {
+          "name": "Codex CLI Reference",
+          "topic": "CLI flags, commands, codex exec, --json, --output-schema, --skip-git-repo-check, completion, mcp",
+          "jina_url": "http://r.jina.ai/https://developers.openai.com/codex/cli/reference",
+          "added": "2026-06-19"
+        },
+        {
+          "name": "Codex AGENTS.md guide",
+          "topic": "AGENTS.md discovery, precedence, global vs project, max size, AGENTS.override.md",
+          "jina_url": "http://r.jina.ai/https://developers.openai.com/codex/guides/agents-md",
+          "added": "2026-06-19"
+        },
+        {
+          "name": "Codex Hooks",
+          "topic": "SessionStart, PreToolUse, PostToolUse, PermissionRequest, UserPromptSubmit, PreCompact, PostCompact, SubagentStart, SubagentStop, Stop, hooks.json, additionalContext",
+          "jina_url": "http://r.jina.ai/https://developers.openai.com/codex/hooks",
+          "added": "2026-06-17"
+        },
+        {
+          "name": "Codex Non-interactive / headless mode",
+          "topic": "codex exec, --json JSONL stream, --output-schema, resume --last, stdin piping, CI usage",
+          "jina_url": "http://r.jina.ai/https://developers.openai.com/codex/noninteractive",
+          "added": "2026-06-19"
+        },
+        {
+          "name": "Codex Config basics",
+          "topic": "config.toml, model, approval_policy, sandbox_mode, web_search, features, project_doc_max_bytes",
+          "jina_url": "http://r.jina.ai/https://developers.openai.com/codex/config-basic",
+          "added": "2026-06-19"
+        }
+      ]
+    },
+    {
+      "domain_name": "cursor.com",
+      "entries": [
+        {
+          "name": "Cursor CLI Overview",
+          "topic": "Cursor CLI install, terminal agents, headless, automation, GitHub Actions, shell mode, IDE integration",
+          "jina_url": "http://r.jina.ai/https://cursor.com/cli",
+          "added": "2026-06-23"
+        },
+        {
+          "name": "Cursor CLI Installation",
+          "topic": "install macOS Linux WSL Windows, curl install, brew cask cursor-cli, PATH setup, agent --version, auto-update, Gatekeeper quarantine fix",
+          "jina_url": "http://r.jina.ai/https://cursor.com/docs/cli/installation",
+          "added": "2026-06-23"
+        },
+        {
+          "name": "Cursor Headless CLI",
+          "topic": "-p/--print non-interactive mode, --force/--yolo file modification in scripts, --output-format text/json/stream-json, --stream-partial-output, batch file processing, image analysis, CURSOR_API_KEY env var",
+          "jina_url": "http://r.jina.ai/https://cursor.com/docs/cli/headless",
+          "added": "2026-06-18",
+          "updated": "2026-06-23"
+        },
+        {
+          "name": "Cursor CLI GitHub Actions",
+          "topic": "GitHub Actions integration, CI/CD, CURSOR_API_KEY secret, full autonomy vs restricted autonomy, permission-based restrictions, shell script execution, environment variables",
+          "jina_url": "http://r.jina.ai/https://cursor.com/docs/cli/github-actions",
+          "added": "2026-06-23"
+        },
+        {
+          "name": "Cursor Hooks",
+          "topic": "Cursor hooks, automation",
+          "jina_url": "http://r.jina.ai/https://cursor.com/docs/hooks",
+          "added": "2026-06-17"
+        }
+      ]
+    },
+    {
+      "domain_name": "kiro.dev",
+      "entries": [
+        {
+          "name": "Kiro Hooks overview",
+          "topic": "hook types, triggers, actions, agent prompt action, shell command action",
+          "jina_url": "http://r.jina.ai/https://kiro.dev/docs/hooks",
+          "added": "2026-06-04"
+        },
+        {
+          "name": "Kiro Hook triggers",
+          "topic": "PromptSubmit, AgentStop, PreToolUse, PostToolUse, FileCreate, FileSave, FileDelete, PreTaskExecution, PostTaskExecution, ManualTrigger",
+          "jina_url": "http://r.jina.ai/https://kiro.dev/docs/hooks/types",
+          "added": "2026-06-04"
+        },
+        {
+          "name": "Kiro Hook actions",
+          "topic": "agent prompt action, shell command action, stdout context, stderr error, exit codes, timeout",
+          "jina_url": "http://r.jina.ai/https://kiro.dev/docs/hooks/actions",
+          "added": "2026-06-04"
+        },
+        {
+          "name": "Kiro Specs",
+          "topic": "requirements.md, design.md, tasks.md, feature specs, bugfix specs, task execution, dependency graph, waves",
+          "jina_url": "http://r.jina.ai/https://kiro.dev/docs/specs",
+          "added": "2026-06-04"
+        },
+        {
+          "name": "Kiro Steering",
+          "topic": "steering files, always/auto/fileMatch/manual inclusion modes, global vs workspace, AGENTS.md support",
+          "jina_url": "http://r.jina.ai/https://kiro.dev/docs/steering",
+          "added": "2026-06-04"
+        },
+        {
+          "name": "Kiro Agent Skills",
+          "topic": "SKILL.md format, progressive disclosure, workspace vs global scope, agentskills.io standard",
+          "jina_url": "http://r.jina.ai/https://kiro.dev/docs/skills",
+          "added": "2026-06-04"
+        }
+      ]
+    },
+    {
+      "domain_name": "agentskills.io",
+      "entries": [
+        {
+          "name": "AgentSkills Specification",
+          "topic": "SKILL.md format, frontmatter fields, name, description, license, compatibility, metadata",
+          "jina_url": "http://r.jina.ai/https://agentskills.io/specification",
+          "added": "2026-06-04"
+        }
+      ]
+    },
+    {
+      "domain_name": "pexpect.readthedocs.io",
+      "entries": [
+        {
+          "name": "pexpect — API reference",
+          "topic": "spawn, PTY wrapping, expect, sendline, timeout",
+          "jina_url": "http://r.jina.ai/https://pexpect.readthedocs.io/en/stable/api/pexpect.html",
+          "added": "2026-06-18"
+        }
+      ]
+    },
+    {
+      "domain_name": "nvidia.com",
+      "entries": [
+        {
+          "name": "NemoClaw Documentation index (llms.txt)",
+          "topic": "full docs index, all NemoClaw pages",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/llms.txt",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoClaw Security Best Practices",
+          "topic": "sandbox isolation, network policy, filesystem restrictions, SSRF, credential handling, risk framework",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/security/best-practices",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoClaw Credential Storage",
+          "topic": "where NemoClaw stores credentials, OpenShell gateway store, no disk persistence, rotate, remove, gh auth token, legacy migration",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/security/credential-storage",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoClaw Quickstart",
+          "topic": "install, onboard wizard, sandbox name, inference provider, model, network policy, connect, lifecycle commands",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/get-started/quickstart",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoHermes Quickstart",
+          "topic": "hermes agent, nemohermes alias, port 8642, OpenAI-compatible API",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/get-started/quickstart-hermes",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoClaw Inference Options",
+          "topic": "inference providers, model selection, NVIDIA endpoints, credential env vars, openshell inference set",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/inference/inference-options",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoClaw Commands reference",
+          "topic": "nemoclaw CLI, nemohermes alias, status, logs, rebuild, destroy, snapshot, policy-add, credentials",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/reference/commands",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoClaw Backup and Restore",
+          "topic": "snapshot create, snapshot restore, backup, destructive operations",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/manage-sandboxes/backup-restore",
+          "added": "2026-05-28"
+        },
+        {
+          "name": "NemoClaw Monitor Sandbox Activity",
+          "topic": "sandbox logs, monitoring",
+          "jina_url": "http://r.jina.ai/https://docs.nvidia.com/nemoclaw/monitoring/monitor-sandbox-activity",
+          "added": "2026-05-28"
+        }
+      ]
+    },
+    {
+      "domain_name": "konghq.com",
+      "entries": [
+        {
+          "name": "Kong Gateway — Docker Install",
+          "topic": "kong gateway OSS, docker compose install, ai-proxy plugin, AI gateway, free tier",
+          "jina_url": "http://r.jina.ai/https://developer.konghq.com/gateway/install/docker",
+          "added": "2026-05-28"
+        }
+      ]
+    },
+    {
+      "domain_name": "ansible.com",
+      "entries": [
+        {
+          "name": "Ansible Inventory guide",
+          "topic": "inventory, group_vars, host_vars, variable precedence",
+          "jina_url": "http://r.jina.ai/https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html",
+          "added": "2026-06-18"
+        }
+      ]
+    }
+  ]
+}

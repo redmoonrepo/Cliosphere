@@ -1,0 +1,43 @@
+# .geminiignore — Cliosphere
+# Prevents Gemini CLI / Antigravity CLI workspace scanner from indexing these paths.
+# Mirrors .gitignore where relevant, plus agent-specific exclusions.
+
+# macOS artifacts
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Environment files
+.env
+*.env
+
+# Node
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Runtime — ephemeral execution artifacts, task specs, logs
+tmp/
+cache/
+runtime/
+
+# Daily session logs — raw, verbose, not agent context
+# Boot sequence loads only the most recent log explicitly by name.
+state/memory/daily/
+
+# RAG — large source files and binary vector data
+state/knowledge/sources/
+state/knowledge/chroma_db/
+
+# Backlog — structured reference, not boot context
+# Agents load this explicitly when needed, not on every session.
+state/BACKLOG.md

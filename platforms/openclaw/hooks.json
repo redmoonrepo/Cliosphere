@@ -1,0 +1,25 @@
+{
+  "hooks": {
+    "FileCreate": [
+      {
+        "description": "Dispatch new spec tasks to clio-gemini via agent_trigger.sh",
+        "filePattern": "runtime/tasks/*/requirements.md",
+        "type": "command",
+        "command": "bash --noprofile --norc -c 'TASK=$(basename $(dirname \"$FILE_PATH\")) && cd /workspaces/Cliosphere && bash infra/scripts/agent_trigger.sh \"$TASK\"'",
+        "env": {
+          "CLIO_ROOT": "/workspaces/Cliosphere",
+          "AGENT_CMD": "gemini"
+        },
+        "timeoutSeconds": 300,
+        "notes": "Fires when clio-claude writes a new requirements.md. Parses task name from path, dispatches to gemini -p headless. stdout fed back to OpenClaw as context."
+      }
+    ],
+    "PostToolUse": [
+      {
+        "description": "Azure MCP telemetry suppression — already handled via env, this is a no-op guard",
+        "command": "exit 0",
+        "notes": "AZURE_MCP_COLLECT_TELEMETRY=false set in container env. This hook is a placeholder in case we need PostToolUse logic later."
+      }
+    ]
+  }
+}

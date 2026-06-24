@@ -6,7 +6,10 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Environment files — never commit secrets
 .env
+*.env
 
 # Node
 node_modules/
@@ -18,8 +21,22 @@ node_modules/
 # Logs
 *.log
 
-# Runtime/state
+# Runtime/state — ephemeral execution artifacts
 tmp/
 cache/
+runtime/
 
-EOF
+# Infrastructure — sensitive topology (IPs, hostnames, ports, credentials)
+# IaC lives locally or in a separate private cliosphere-infra repo.
+# Keeping it out of Cliosphere prevents host data from leaking into
+# OpenClaw context and becoming a prompt injection target.
+infra/
+
+# Daily session logs — raw, ephemeral, potentially sensitive
+# MEMORY.md (curated long-term) IS tracked. Daily logs are not.
+state/memory/daily/
+
+# RAG knowledge layer — large source files and binary vector data
+# RAG.md (config) IS tracked. Source docs and Chroma DB are not.
+state/knowledge/sources/
+state/knowledge/chroma_db/

@@ -1,0 +1,12 @@
+{
+  "name": "clio",
+  "version": "1.0.0",
+  "description": "Clio's identity, hooks, skills, and rules for the Antigravity CLI platform.",
+  "author": "cliosphere.ai@gmail.com",
+  "components": {
+    "hooks": "hooks.json",
+    "skills": "skills/",
+    "rules": "rules/",
+    "agents": "agents/"
+  }
+}

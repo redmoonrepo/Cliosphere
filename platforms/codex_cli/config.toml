@@ -1,0 +1,36 @@
+# ~/.codex/config.toml — Clio's Codex CLI configuration
+# Install: cp ~/Cliosphere/platforms/codex_cli/config.toml ~/.codex/config.toml
+# Or symlink: ln -sf ~/Cliosphere/platforms/codex_cli/config.toml ~/.codex/config.toml
+# Note: ~/.codex/auth.json is separate and must NOT be committed.
+
+# Default model
+model = "gpt-5.5"
+
+# Reasoning effort
+model_reasoning_effort = "medium"
+
+# Communication style
+personality = "pragmatic"
+
+# Approval policy: "on-request" = ask before shell/network outside workspace
+approval_policy = "on-request"
+
+# Sandbox: workspace-write = read+write within cwd, ask for outside/network
+sandbox_mode = "workspace-write"
+
+# Web search: cached reduces prompt injection risk; use "live" for real-time data
+web_search = "cached"
+
+[features]
+hooks = true
+memories = false        # Using file-based memory (MEMORY.md), not ChatGPT memories
+multi_agent = true
+shell_tool = true
+unified_exec = true     # PTY-backed exec — better streaming
+undo = true             # Per-turn git ghost snapshots — useful for agentic runs
+shell_snapshot = true
+
+# Project instructions discovery — Codex picks up AGENTS.md by default.
+# Add fallback filenames if needed (e.g. CLAUDE.md for cross-platform compat)
+project_doc_fallback_filenames = []
+project_doc_max_bytes = 65536   # 64 KiB — raised from default 32 KiB for Cliosphere file suite

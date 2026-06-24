@@ -1,0 +1,40 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/infra/scripts/codex_session_start.py\"",
+            "statusMessage": "Loading Clio context..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/infra/scripts/log_writer.py\"",
+            "statusMessage": "Logging tool use..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/infra/scripts/codex_session_stop.py\"",
+            "timeout": 30,
+            "statusMessage": "Flushing session log..."
+          }
+        ]
+      }
+    ]
+  }
+}

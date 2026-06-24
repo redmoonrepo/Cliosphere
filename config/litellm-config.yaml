@@ -1,0 +1,86 @@
+# config/litellm-config.yaml
+# LiteLLM proxy configuration for Cliosphere.
+# This file is mounted read-only into clio-litellm at /app/config.yaml.
+# DO NOT hardcode API keys here — use Vault secret paths or env vars.
+#
+# Vault secret paths assume dev mode KV store (kv/data/...):
+#   vault kv put secret/anthropic api_key=<your-key>
+#   vault kv put secret/gemini api_key=<your-key>
+#
+# Key reference format: "vault/secret/<path>#<field>"
+
+# ── Model list ────────────────────────────────────────────────────────────────
+
+model_list:
+
+  # Anthropic — paid, high quality, used when quality matters
+  - model_name: claude-sonnet
+    litellm_params:
+      model: anthropic/claude-sonnet-4-6
+      api_key: "vault/secret/anthropic#api_key"
+
+  # Gemini Flash — free tier primary, fast
+  - model_name: gemini-flash
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "vault/secret/gemini#api_key"
+
+  # Gemini Pro — free tier, higher capability
+  - model_name: gemini-pro
+    litellm_params:
+      model: gemini/gemini-2.5-pro
+      api_key: "vault/secret/gemini#api_key"
+
+  # Ollama local models — no key required
+  - model_name: qwen-coder
+    litellm_params:
+      model: ollama/qwen2.5-coder:7b
+      api_base: "http://localhost:11434"
+
+  - model_name: deepseek-r1
+    litellm_params:
+      model: ollama/deepseek-r1:7b
+      api_base: "http://localhost:11434"
+
+
+# ── Router settings ───────────────────────────────────────────────────────────
+
+router_settings:
+  # Fallback chain: gemini-flash → gemini-pro → claude-sonnet
+  # Local models are called directly and never in the fallback chain.
+  fallbacks:
+    - gemini-flash:
+        - gemini-pro
+        - claude-sonnet
+
+  # Retry on rate-limit and transient errors
+  num_retries: 2
+  retry_after: 5
+
+  # Timeout per request
+  timeout: 60
+
+
+# ── General settings ──────────────────────────────────────────────────────────
+
+general_settings:
+  # Master key — authenticate virtual key issuance and admin API.
+  # Value comes from LITELLM_MASTER_KEY env var (set in docker-compose.j2).
+  master_key: "os.environ/LITELLM_MASTER_KEY"
+
+  # Vault integration — VAULT_ADDR and VAULT_TOKEN come from environment.
+  # No need to set them here; LiteLLM reads them from os.environ automatically.
+
+  # Disable telemetry — no data leaves to LiteLLM hosted services
+  telemetry: false
+
+  # Drop params not supported by a given model (avoids errors on fallback)
+  drop_params: true
+
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+
+litellm_settings:
+  # Log to stdout only — no external callbacks
+  success_callback: []
+  failure_callback: []

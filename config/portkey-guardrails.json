@@ -1,0 +1,84 @@
+{
+  "_comment": "config/portkey-guardrails.json — mounted read-only into clio-portkey at /app/guardrails.json",
+  "_note": "Portkey OSS gateway guardrail config. Redacts API keys and common PII patterns from all responses before they reach the caller.",
+
+  "guardrails": [
+
+    {
+      "id": "redact-anthropic-key",
+      "type": "regex_replace",
+      "target": "response",
+      "description": "Redact Anthropic API keys (sk-ant-... format)",
+      "pattern": "sk-ant-[A-Za-z0-9\\-_]{20,}",
+      "replacement": "[REDACTED:ANTHROPIC_KEY]",
+      "enabled": true
+    },
+
+    {
+      "id": "redact-gemini-key",
+      "type": "regex_replace",
+      "target": "response",
+      "description": "Redact Google/Gemini API keys (AIza... format)",
+      "pattern": "AIza[A-Za-z0-9\\-_]{35,}",
+      "replacement": "[REDACTED:GEMINI_KEY]",
+      "enabled": true
+    },
+
+    {
+      "id": "redact-openai-key",
+      "type": "regex_replace",
+      "target": "response",
+      "description": "Redact OpenAI API keys (sk-... format, not Anthropic variant)",
+      "pattern": "sk-(?!ant-)[A-Za-z0-9]{20,}",
+      "replacement": "[REDACTED:OPENAI_KEY]",
+      "enabled": true
+    },
+
+    {
+      "id": "redact-vault-token",
+      "type": "regex_replace",
+      "target": "response",
+      "description": "Redact Vault root/dev tokens (hvs.* and s.* formats)",
+      "pattern": "hvs\\.[A-Za-z0-9]{20,}|\\bs\\.[A-Za-z0-9]{24,}\\b",
+      "replacement": "[REDACTED:VAULT_TOKEN]",
+      "enabled": true
+    },
+
+    {
+      "id": "redact-env-key-patterns",
+      "type": "regex_replace",
+      "target": "response",
+      "description": "Redact generic high-entropy strings following KEY= or TOKEN= assignment patterns",
+      "pattern": "(?i)(api_key|secret_key|access_token|auth_token|bearer)([\\s=:\"']+)[A-Za-z0-9\\-_\\.]{32,}",
+      "replacement": "$1$2[REDACTED]",
+      "enabled": true
+    },
+
+    {
+      "id": "redact-ssn",
+      "type": "regex_replace",
+      "target": "response",
+      "description": "Redact US Social Security Numbers",
+      "pattern": "\\b(?!000|666|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0{4})\\d{4}\\b",
+      "replacement": "[REDACTED:SSN]",
+      "enabled": true
+    },
+
+    {
+      "id": "redact-credit-card",
+      "type": "regex_replace",
+      "target": "response",
+      "description": "Redact credit card numbers (major formats, with or without spaces/dashes)",
+      "pattern": "\\b(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|6(?:011|5[0-9]{2})[0-9]{12})\\b",
+      "replacement": "[REDACTED:CC]",
+      "enabled": true
+    }
+
+  ],
+
+  "settings": {
+    "on_guardrail_match": "redact",
+    "log_matches": true,
+    "log_level": "info"
+  }
+}
